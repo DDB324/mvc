@@ -1,19 +1,27 @@
 #app4 {
+    position: relative;
 }
+
 @keyframes change {
-  0% {
-    background: red;
-  }
-  100% {
-    background: blue;
-  }
+    0% {
+        background: #f8d714
+    }
+    100% {
+        background: aqua
+    }
 }
+
 #app4 .circle {
-  width: 30vw;
-  height: 30vw;
-  border-radius: 50%;
-  border: 1px solid red;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 20vw;
+    height: 20vw;
+    border-radius: 50%;
+    background: #f8d714
 }
-#app4 .circle.active{
-  animation: change 1s infinite alternate linear;
+
+#app4 .circle.actions {
+    animation: change 1s linear infinite alternate;
 }
