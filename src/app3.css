@@ -1,14 +1,21 @@
 #app3 {
-  
+    position: relative;
 }
-#app3 .square{
-  border: 1px solid grey;
-  margin-top: 10vw;
-  margin-left: 10vw;
-  width: 10vw;
-  height: 10vw;
-  transition: transform 1s;
+
+#app3 .square {
+    position: absolute;
+    top: 50%;
+    left: 10%;
+    transform: translateY(-50%);
+    border: 1px solid grey;
+    width: 10vw;
+    height: 10vw;
+    transition: all 1s;
+    background: red;
 }
-#app3 .square.active{
-  transform:translateX(15vw);
+
+#app3 .square.active {
+    left: 50%;
+    border-radius: 50%;
+    background: yellow;
 }
