@@ -2,6 +2,8 @@
   "name": "mvc",
   "version": "1.0.0",
   "main": "index.js",
+  "repository": "git@github.com:DDB324/mvc.git",
+  "author": "ddb324 <jiangdaoran@163.com>",
   "license": "MIT",
   "dependencies": {
     "jquery": "^3.5.1"
