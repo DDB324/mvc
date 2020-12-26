@@ -1,21 +1,26 @@
 #app2 {
 }
+
 #app2 .tab-bar {
-  display: flex;
+    display: flex;
 }
+
 #app2 .tab-bar > li {
-  border: 1px solid grey;
-  width: 50%;
+    border: 1px solid black;
+    width: 50%;
 }
+
 #app2 .tab-bar > li.selected {
-  background: rgb(253, 221, 155);
-  color: white;
+    background: #f8d714;
 }
+
 #app2 .tab-content {
 }
+
 #app2 .tab-content > li {
-  display: none;
+    display: none;
 }
+
 #app2 .tab-content > li.active {
-  display: block;
+    display: block;
 }
