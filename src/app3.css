@@ -7,7 +7,6 @@
     top: 50%;
     left: 10%;
     transform: translateY(-50%);
-    border: 1px solid grey;
     width: 10vw;
     height: 10vw;
     transition: all 1s;
@@ -15,7 +14,7 @@
 }
 
 #app3 .square.active {
-    left: 50%;
+    transform: translate(30vw, -50%);
     border-radius: 50%;
     background: yellow;
 }
