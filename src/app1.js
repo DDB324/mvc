@@ -10,7 +10,7 @@ const m = {
 //视图相关放到v
 const v = {
     el: null,
-    html: ` <section id="app1">
+    html: ` <div>
         <div class="output">
             <span id="number">{{n}}</span>
         </div>
@@ -20,7 +20,7 @@ const v = {
             <button id="mul2">*2</button>
             <button id="divide2">÷2</button>
         </div>
-    </section>`,
+    </div>`,
     render(container) {
         const element = $(v.html.replace('{{n}}', m.data.n.toString()))
         if (!v.el) {
@@ -36,11 +36,13 @@ const v = {
 }
 //其他内容放到c
 const c = {
-    init() {
+    init(container) {
+        v.render(container)
         c.ui = {
             number: $('#number'),
             action: $('.actions')
         }
+        c.bindEvents()
     },
     bindEvents() {
         c.ui.action.on('click', 'button', (e) => {
@@ -60,10 +62,9 @@ const c = {
 }
 
 //第一次渲染HTML
-v.render()
 //寻找重要元素
-c.init()
+// c.init()
 //初始化数据
 //将数据渲染到页面
 //绑定鼠标事件
-c.bindEvents()
+export default c
