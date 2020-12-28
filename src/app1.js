@@ -21,20 +21,20 @@ const v = {
             <button id="divide2">÷2</button>
         </div>
     </div>`,
-    render() {
+    render(data) {
         if (v.el.children.length !== 0) v.el.empty()//移除所有子节点
-        $(v.html.replace('{{n}}', m.data.n.toString()))
+        $(v.html.replace('{{n}}', data))
             .appendTo(v.el)
     },
-    init(el) {
-        v.el = $(el)
-        v.render()
+    init(container) {
+        v.el = $(container)
     }
 }
 //其他内容放到c
 const c = {
-    init(el) {
-        v.init(el)
+    init(container) {
+        v.init(container)
+        v.render(m.data.n)
         c.ui = {
             number: $('#number'),
             action: $('.actions')
@@ -53,7 +53,7 @@ const c = {
             } else if (method === '÷2') {
                 m.data.n /= 2
             }
-            v.render()
+            v.render(m.data.n)
         })
     }
 }
