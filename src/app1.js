@@ -4,11 +4,12 @@ import $ from "jquery";
 //数据相关放到m
 const m = {
     data: {
-        n: localStorage.getItem('number')
+        n: parseInt(localStorage.getItem('number'))
     }
 }
 //视图相关放到v
 const v = {
+    el: null,
     html: ` <section id="app1">
         <div class="output">
             <span id="number">{{n}}</span>
@@ -20,9 +21,14 @@ const v = {
             <button id="divide2">÷2</button>
         </div>
     </section>`,
-    render() {
-        const $element = $(v.html.replace('{{n}}', m.data.n))
-            .appendTo('body>.page')
+    render(container) {
+        const element = $(v.html.replace('{{n}}', m.data.n.toString()))
+        if (!v.el) {
+            v.el = element.appendTo(container)
+        } else {
+            v.el.replaceWith(element)
+            v.el = element
+        }
     },
     update() {
         c.ui.number.text(m.data.n || 100)
@@ -38,19 +44,17 @@ const c = {
     },
     bindEvents() {
         c.ui.action.on('click', 'button', (e) => {
-            let n = parseInt(c.ui.number.text())
             const method = e.currentTarget.innerText
             if (method === '+1') {
-                n += 1
+                m.data.n += 1
             } else if (method === '-1') {
-                n -= 1
+                m.data.n -= 1
             } else if (method === '*2') {
-                n *= 2
+                m.data.n *= 2
             } else if (method === '÷2') {
-                n /= 2
+                m.data.n /= 2
             }
-            localStorage.setItem('number', n.toString())
-            c.ui.number.text(n)
+            v.render()
         })
     }
 }
