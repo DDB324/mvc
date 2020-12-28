@@ -39,22 +39,36 @@ const c = {
             number: $('#number'),
             action: $('.actions')
         }
-        c.bindEvents()
+        c.autoBindEvents()
     },
-    bindEvents() {
-        v.el.on('click', 'button', (e) => {
-            const method = e.currentTarget.innerText
-            if (method === '+1') {
-                m.data.n += 1
-            } else if (method === '-1') {
-                m.data.n -= 1
-            } else if (method === '*2') {
-                m.data.n *= 2
-            } else if (method === '÷2') {
-                m.data.n /= 2
-            }
-            v.render(m.data.n)
-        })
+    events: {
+        'click #add1': 'add',
+        'click #minus1': 'minus',
+        'click #mul2': 'mul',
+        'click #divide2': 'div',
+    },
+    add() {
+        m.data.n += 1
+        v.render(m.data.n)
+    },
+    minus() {
+        m.data.n -= 1
+        v.render(m.data.n)
+    },
+    mul() {
+        m.data.n *= 2
+        v.render(m.data.n)
+    },
+    div() {
+        m.data.n /= 2
+        v.render(m.data.n)
+    },
+    autoBindEvents() {
+        for (let key in c.events) {
+            const [part1, part2] = key.split(' ')
+            const method = c[c.events[key]]
+            v.el.on(part1, part2, method)
+        }
     }
 }
 
