@@ -1,9 +1,10 @@
 import "./app2.css";
 import $ from "jquery";
+import Model from "./base/Model";
 // eventBus
 const eventBus = $({})
 //数据相关放到m
-const m = {
+const m = new Model({
     data: {
         index: parseInt(localStorage.getItem('app2.index')) || 0
     },
@@ -12,7 +13,7 @@ const m = {
         eventBus.trigger('update:m')
         localStorage.setItem('app2.index', m.data.index.toString())
     }
-}
+})
 //视图相关放到v
 const v = {
     el: null,

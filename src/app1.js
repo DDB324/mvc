@@ -7,13 +7,13 @@ const eventBus = $({})
 const m = new Model({
     data: {
         n: parseInt(localStorage.getItem('number')) || 100
+    },
+    update(data){
+        Object.assign(m.data, data)
+        eventBus.trigger('update:m')
+        localStorage.setItem('number', m.data.n.toString())
     }
 })
-m.update = (data) => {
-    Object.assign(m.data, data)
-    eventBus.trigger('update:m')
-    localStorage.setItem('number', m.data.n.toString())
-}
 //视图相关放到v
 const v = {
     el: null,

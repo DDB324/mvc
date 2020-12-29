@@ -1,7 +1,16 @@
 class Model {
     constructor(options) {
-        this.data = options.data
+        ['data', 'create', 'update', 'delete', 'get']
+            .forEach(item => {
+                if (item in options) this[item] = options[item]
+            })
+        // this.data = options.data
+        // this.create = options.create
+        // this.update = options.update
+        // this.delete = options.delete
+        // this.get = options.get
     }
+
     create() {
         console?.error?.('你还没有实现create')//console && console.error && console.error('你还没有实现create')
     }
@@ -18,4 +27,5 @@ class Model {
         console?.error?.('get')
     }
 }
+
 export default Model
