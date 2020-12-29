@@ -1,10 +1,16 @@
 import "./app1.css";
 import $ from "jquery";
-
+//eventBus
+const eventBus = $({})
 //数据相关放到m
 const m = {
     data: {
         n: parseInt(localStorage.getItem('number'))
+    },
+    update(data) {
+        Object.assign(m.data, data)
+        eventBus.trigger('update:m')
+        localStorage.setItem('number', m.data.n.toString())
     }
 }
 //视图相关放到v
@@ -40,6 +46,9 @@ const c = {
             action: $('.actions')
         }
         c.autoBindEvents()
+        eventBus.on('update:m', () => {
+            v.render(m.data.n)
+        })
     },
     events: {
         'click #add1': 'add',
@@ -48,20 +57,16 @@ const c = {
         'click #divide2': 'div',
     },
     add() {
-        m.data.n += 1
-        v.render(m.data.n)
+        m.update({n: m.data.n + 1})
     },
     minus() {
-        m.data.n -= 1
-        v.render(m.data.n)
+        m.update({n: m.data.n - 1})
     },
     mul() {
-        m.data.n *= 2
-        v.render(m.data.n)
+        m.update({n: m.data.n * 2})
     },
     div() {
-        m.data.n /= 2
-        v.render(m.data.n)
+        m.update({n: m.data.n / 2})
     },
     autoBindEvents() {
         for (let key in c.events) {
