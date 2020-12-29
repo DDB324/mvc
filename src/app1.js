@@ -5,7 +5,7 @@ const eventBus = $({})
 //数据相关放到m
 const m = {
     data: {
-        n: parseInt(localStorage.getItem('number'))
+        n: parseInt(localStorage.getItem('number')) || 100
     },
     update(data) {
         Object.assign(m.data, data)
