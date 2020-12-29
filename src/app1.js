@@ -1,17 +1,18 @@
 import "./app1.css";
 import $ from "jquery";
+import Model from './base/Model.js'
 //eventBus
 const eventBus = $({})
 //数据相关放到m
-const m = {
+const m = new Model({
     data: {
         n: parseInt(localStorage.getItem('number')) || 100
-    },
-    update(data) {
-        Object.assign(m.data, data)
-        eventBus.trigger('update:m')
-        localStorage.setItem('number', m.data.n.toString())
     }
+})
+m.update = (data) => {
+    Object.assign(m.data, data)
+    eventBus.trigger('update:m')
+    localStorage.setItem('number', m.data.n.toString())
 }
 //视图相关放到v
 const v = {
