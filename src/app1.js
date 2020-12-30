@@ -17,8 +17,12 @@ const m = new Model({
 })
 //视图相关放到v
 //其他内容放到c
-const view = {
-    html: ` 
+const init = (el) => {
+    const view = new View({
+        data: m.data,
+        eventBus: eventBus,
+        el: el,
+        html: ` 
     <div>
         <div class="output">
             <span id="number">{{n}}</span>
@@ -30,45 +34,32 @@ const view = {
             <button id="divide2">÷2</button>
         </div>
     </div>`,
-    el:null,
-    render(data) {
-        if (view.el.children.length !== 0) view.el.empty()//移除所有子节点
-        $(view.html.replace('{{n}}', data))
-            .appendTo(view.el)
-    },
-    init(container) {
-        view.el = $(container)
-        view.render(m.data.n)
-        view.autoBindEvents()
-        eventBus.on('update:m', () => {
-            view.render(m.data.n)
-        })
-    },
-    events: {
-        'click #add1': 'add',
-        'click #minus1': 'minus',
-        'click #mul2': 'mul',
-        'click #divide2': 'div',
-    },
-    add() {
-        m.update({n: m.data.n + 1})
-    },
-    minus() {
-        m.update({n: m.data.n - 1})
-    },
-    mul() {
-        m.update({n: m.data.n * 2})
-    },
-    div() {
-        m.update({n: m.data.n / 2})
-    },
-    autoBindEvents() {
-        for (let key in view.events) {
-            const [part1, part2] = key.split(' ')
-            const method = view[view.events[key]]
-            view.el.on(part1, part2, method)
-        }
-    }
+        render(data) {
+            const n = data.n
+            if (this.el.children.length !== 0) this.el.empty()//移除所有子节点
+            $(this.html.replace('{{n}}', n))
+                .appendTo(this.el)
+        },
+        events: {
+            'click #add1': 'add',
+            'click #minus1': 'minus',
+            'click #mul2': 'mul',
+            'click #divide2': 'div',
+        },
+        add() {
+            m.update({n: m.data.n + 1})
+        },
+        minus() {
+            m.update({n: m.data.n - 1})
+        },
+        mul() {
+            m.update({n: m.data.n * 2})
+        },
+        div() {
+            m.update({n: m.data.n / 2})
+        },
+    })
+    console.log(view);
+    view.init()
 }
-
-export default view
+export default init
