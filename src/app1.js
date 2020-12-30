@@ -17,42 +17,31 @@ const m = new Model({
 })
 //视图相关放到v
 //其他内容放到c
-const c = {
-    container: null,
-    v: null,
-    initV() {
-        c.v = new View({
-            el: c.container,
-            html: ` 
-                <div>
-                    <div class="output">
-                        <span id="number">{{n}}</span>
-                    </div>
-                    <div class="actions">
-                        <button id="add1">+1</button>
-                        <button id="minus1">-1</button>
-                        <button id="mul2">*2</button>
-                        <button id="divide2">÷2</button>
-                    </div>
-                </div>`,
-            render(data) {
-                if (c.v.el.children.length !== 0) c.v.el.empty()//移除所有子节点
-                $(c.v.html.replace('{{n}}', data))
-                    .appendTo(c.v.el)
-            },
-        })
+const view = {
+    html: ` 
+    <div>
+        <div class="output">
+            <span id="number">{{n}}</span>
+        </div>
+        <div class="actions">
+            <button id="add1">+1</button>
+            <button id="minus1">-1</button>
+            <button id="mul2">*2</button>
+            <button id="divide2">÷2</button>
+        </div>
+    </div>`,
+    el:null,
+    render(data) {
+        if (view.el.children.length !== 0) view.el.empty()//移除所有子节点
+        $(view.html.replace('{{n}}', data))
+            .appendTo(view.el)
     },
     init(container) {
-        c.container = container
-        c.initV()
-        c.v.render(m.data.n)
-        c.ui = {
-            number: $('#number'),
-            action: $('.actions')
-        }
-        c.autoBindEvents()
+        view.el = $(container)
+        view.render(m.data.n)
+        view.autoBindEvents()
         eventBus.on('update:m', () => {
-            c.v.render(m.data.n)
+            view.render(m.data.n)
         })
     },
     events: {
@@ -74,12 +63,12 @@ const c = {
         m.update({n: m.data.n / 2})
     },
     autoBindEvents() {
-        for (let key in c.events) {
+        for (let key in view.events) {
             const [part1, part2] = key.split(' ')
-            const method = c[c.events[key]]
-            c.v.el.on(part1, part2, method)
+            const method = view[view.events[key]]
+            view.el.on(part1, part2, method)
         }
     }
 }
 
-export default c
+export default view
