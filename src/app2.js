@@ -1,9 +1,7 @@
 import "./app2.css";
 import $ from "jquery";
-import Model from "./base/Model";
-import View from "./base/View";
-// eventBus
-const eventBus = $({})
+import Model from "./base/Model.js";
+import View from "./base/View.js";
 //数据相关放到m
 const m = new Model({
     data: {
@@ -11,7 +9,7 @@ const m = new Model({
     },
     update(data) {
         Object.assign(m.data, data)
-        eventBus.trigger('update:m')
+        m.trigger('update:m')
         localStorage.setItem('app2.index', m.data.index.toString())
     }
 })
@@ -19,7 +17,6 @@ const m = new Model({
 //其他内容放到c
 const init = (el) => {
     const view = new View({
-        eventBus: eventBus,
         el: el,
         data: m.data,
         html: (index) => {
@@ -35,6 +32,7 @@ const init = (el) => {
                      </div>`
         },
         render(data) {
+            console.log('app2render了');
             const index = data.index
             if (this.el.children.length !== 0) this.el.empty()//移除所有子节点
             $(this.html(index)).appendTo(this.el)
