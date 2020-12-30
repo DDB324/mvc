@@ -7,7 +7,7 @@ const eventBus = $({})
 //数据相关放到m
 const m = new Model({
     data: {
-        n: parseInt(localStorage.getItem('number')) || 100
+        n: parseFloat(localStorage.getItem('number')) || 100
     },
     update(data) {
         Object.assign(m.data, data)
@@ -59,7 +59,6 @@ const init = (el) => {
             m.update({n: m.data.n / 2})
         },
     })
-    console.log(view);
     view.init()
 }
 export default init
