@@ -1,6 +1,6 @@
 import EventBus from "./EventBus.js";
 
-class Model extends EventBus {
+class Model extends EventBus{
     constructor(options) {
         super()
         const keys = ['data', 'create', 'update', 'delete', 'get']

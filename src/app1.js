@@ -9,7 +9,7 @@ const m = new Model({
     },
     update(data) {
         Object.assign(m.data, data)
-        m.trigger('update:m')
+        this.trigger('update:index')
         localStorage.setItem('number', m.data.n.toString())
     }
 })
@@ -56,6 +56,6 @@ const init = (el) => {
             m.update({n: m.data.n / 2})
         },
     })
-    view.init()
+    view.init('update:index')
 }
 export default init

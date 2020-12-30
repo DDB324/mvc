@@ -2,6 +2,7 @@ import "./app2.css";
 import $ from "jquery";
 import Model from "./base/Model.js";
 import View from "./base/View.js";
+
 //数据相关放到m
 const m = new Model({
     data: {
@@ -9,7 +10,7 @@ const m = new Model({
     },
     update(data) {
         Object.assign(m.data, data)
-        m.trigger('update:m')
+        this.trigger('update:n')
         localStorage.setItem('app2.index', m.data.index.toString())
     }
 })
@@ -45,7 +46,7 @@ const init = (el) => {
             m.update({index: index})
         },
     })
-    view.init()
+    view.init('update:n')
 }
 
 export default init
