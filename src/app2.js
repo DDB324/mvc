@@ -15,7 +15,8 @@ const m = new Model({
     }
 })
 //视图相关放到v
-const v = {
+//其他内容放到c
+const view = {
     el: null,
     html: (index) => {
         return ` <div id="app2">
@@ -30,21 +31,15 @@ const v = {
      </div>`
     },
     render(index) {
-        if (v.el.children.length !== 0) v.el.empty()//移除所有子节点
-        $(v.html(index)).appendTo(v.el)
+        if (view.el.children.length !== 0) view.el.empty()//移除所有子节点
+        $(view.html(index)).appendTo(view.el)
     },
     init(container) {
-        v.el = $(container)
-    }
-}
-//其他内容放到c
-const c = {
-    init(container) {
-        v.init(container)
-        v.render(m.data.index)
-        c.autoBindEvents()
+        view.el = $(container)
+        view.render(m.data.index)
+        view.autoBindEvents()
         eventBus.on('update:m', () => {
-            v.render(m.data.index)
+            view.render(m.data.index)
         })
     },
     events: {
@@ -55,12 +50,12 @@ const c = {
         m.update({index: index})
     },
     autoBindEvents() {
-        for (let key in c.events) {
+        for (let key in view.events) {
             const [part1, part2] = key.split(' ')
-            const method = c[c.events[key]]
-            v.el.on(part1, part2, method)
+            const method = view[view.events[key]]
+            view.el.on(part1, part2, method)
         }
     }
 }
 
-export default c
+export default view
