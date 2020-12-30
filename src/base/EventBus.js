@@ -3,7 +3,6 @@ import $ from 'jquery'
 class EventBus {
     constructor() {
         this._eventBus = $(window)
-        this.n = console.log(1)
     }
 
     on(eventName, fn) {

@@ -6,6 +6,10 @@
   "author": "ddb324 <jiangdaoran@163.com>",
   "license": "MIT",
   "dependencies": {
-    "jquery": "^3.5.1"
+    "jquery": "^3.5.1",
+    "vue": "^2.6.12"
+  },
+  "alias": {
+    "vue" : "./node_modules/vue/dist/vue.common.js"
   }
 }
